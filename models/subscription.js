@@ -34,7 +34,7 @@ const SubscriptionSchema = new mongoose.Schema({
         enum: ["Entertainment", "Productivity", "Health", "Education", "Finance", "Utilities", "Shopping", "Travel", "Food", "Music", "Video Streaming", "Cloud Storage", "Software", "Gaming", "News", "Social Media", "Communication", "Fitness", "Wellness", "Other"],
         required: [true, "Category is required"],
     },
-    paymnetMethod: {
+    paymentMethod: {
         type: String,
         trim: true,
         required: [true, "Payment method is required"],
@@ -58,7 +58,7 @@ const SubscriptionSchema = new mongoose.Schema({
         type: Date,
         validate:{
             validator:function(value) 
-            {return value > this.startDate()},
+            {return value > this.startDate},
             message: "Renewal date must be after start date"
         },
     }, 

@@ -1,36 +1,29 @@
 import { Router } from "express";
+import authorize from "../Middlewares/auth.js";
+import { createSubscription, AllSubscriptions, getUserSubscriptions, SubscriptionDetailsById, updateSubscriptionDetails, deleteSubscription, cancelSubscription, UpcomingRenewalsById, UpcomingRenewals } from "../controllers/subscription.js";
+import { authorizeRoles } from "../Middlewares/roleMiddleware.js";
+
 const subscriptionRouter = Router();
 
-subscriptionRouter.post('/', (req, res) => {
-  res.send({title : "Get all subscriptions"});
-});
+subscriptionRouter.get('/', authorize, authorizeRoles("admin"), AllSubscriptions);
 
-subscriptionRouter.get('/:id', (req, res) => {
-  res.send({title : "Get subscription details"});
-});
+subscriptionRouter.get ('/upcoming-renewals', authorize, UpcomingRenewals);
 
-subscriptionRouter.post('/', (req, res) => {
-  res.send({title : "Create new subscription"});
-});
+subscriptionRouter.get('/:id', authorize, SubscriptionDetailsById);
 
-subscriptionRouter.put('/:id', (req, res) => {
-  res.send({title : "Update subscription details"});
-});
+subscriptionRouter.post('/', authorize, createSubscription);
 
-subscriptionRouter.delete('/:id', (req, res) => { 
-    res.send({title : "Delete a subscription"});
-});
+subscriptionRouter.put('/:id', authorize, updateSubscriptionDetails);
 
-subscriptionRouter.get('/user/:userId', (req, res) => {
-    res.send({title : "Get all subscriptions for a user"});
-});
+subscriptionRouter.delete('/:id', authorize, deleteSubscription);
 
-subscriptionRouter.get('/:id/cancel', (req, res) => {
-    res.send({title : "Cancel a subscription"});
-});
+subscriptionRouter.get('/user/mySubscriptions', authorize, getUserSubscriptions);
 
-subscriptionRouter.get ('/upcoming-renewals', (req, res) => {
-    res.send({title : "Get upcoming renewals"});
-});
+subscriptionRouter.get('/user/:userId', authorize, authorizeRoles('admin'), getUserSubscriptions);
+
+subscriptionRouter.put('/:id/cancel', authorize, cancelSubscription);
+
+subscriptionRouter.get ('/upcoming-renewals/:id', authorize, UpcomingRenewalsById);
+
 
 export default subscriptionRouter;
