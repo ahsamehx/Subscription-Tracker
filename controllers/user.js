@@ -1,4 +1,5 @@
 import e from 'express';
+import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
 
 function filterObject(obj, allowedFields) {
@@ -19,7 +20,7 @@ export const getUsers = async (req, res, next) => {
     catch (error) {
         next(error);
     }
-}
+} 
 
 export const getUser = async (req, res, next) => {
     try {
