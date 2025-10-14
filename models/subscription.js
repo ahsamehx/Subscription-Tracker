@@ -13,7 +13,7 @@ const SubscriptionSchema = new mongoose.Schema({
         required: [true, "Price is required"],
         min: [0, "Price cannot be negative"]
     },
-    Currency: {
+    currency: {
         type: String,
         required: [true, "Currency is required"],
         enum: ["USD", "EUR", "GBP", "JPY", "AUD", "CAD", "CHF", "CNY", "INR", "RUB", "BRL", "ZAR", "TRY", "KRW", "MXN", "IDR", "SAR", "AED", "NGN", "EGP", "PKR", "BDT", "VND", "THB", "MYR", "PHP", "PLN", "HUF", "CZK", "DKK", "NOK", "SEK", "ILS", "CLP", "COP", "PEN", "ARS"],
