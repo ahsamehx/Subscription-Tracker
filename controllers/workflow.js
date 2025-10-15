@@ -31,10 +31,11 @@ export const sendReminders = serve(async(context) => {
          {
             await sleepUntilReminder(context, `Reminder ${daysbefore} days before`, reminderDate);
          }
-         await triggerReminder(context, `${daysbefore} days before reminder`, subscription);
+         if(dayjs().isSame(reminderDate, 'day'))
+         {
+             await triggerReminder(context, `${daysbefore} days before reminder`, subscription);
+         }
     }
-
-
 });
 
 const fetchSubscription = async (context, subscriptionId) => {
